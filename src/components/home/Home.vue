@@ -3,14 +3,21 @@
     <navBar></navBar> 
     <main>
 
+      <p v-show="mensagem" class="errMensage">{{ mensagem }}</p>
+
       <input type="search" class="filtro" @input="filtro = $event.target.value" placeholder="Busque pela sua ração">
 
       <ul class="lista-fotos">
         <li class="lista-fotos-item" v-for="foto in fotosComFiltro">
 
           <painel :titulo="foto.titulo">
+
             <imgResponsiva :url="foto.url" :titulo="foto.titulo" />
-            <botao rotulo="Comprar" tipo="button" estilo="padrao" @click.native="comprar()" />
+
+            <botao rotulo="Remover" tipo="button" estilo="deleta" @click.native="remove(foto)" />
+
+            <router-link :to="{ name: 'cadastro', params: { id: foto._id}}"><botao rotulo="Alterar" tipo="button" estilo="alterar" /></router-link>
+
           </painel>
 
         </li>
@@ -25,6 +32,7 @@ import painel from '../shared/painel/painel.vue';
 import ImagemResponsiva from '../shared/img-responsiva/ImagemResponsiva.vue';
 import navBar from '../shared/navBar/navBar.vue';
 import Botao from '../shared/botao/Botao.vue';
+import FotoService from '../../domain/foto/fotoService';
 
 export default {
 
@@ -42,6 +50,7 @@ export default {
       titulo: "Alurapic",
       fotos: [],
       filtro: '',
+      mensagem: '',
 
     }
   },
@@ -60,16 +69,30 @@ export default {
   },
 
   methods: {
-    comprar() {
 
-      this.$router.push({ path: '/produto' })
+    remove(foto) {
+
+      this.service.apaga(foto._id).then(() => {
+
+        let indice =this.fotos.indexOf(foto); 
+        this.fotos.splice(indice, 1);
+        this.mensagem = 'Foto removida com sucesso!';
+
+      }, err => {
+
+        console.log(err);
+        this.mensagem = 'Não foi possivel remover a foto!';
+
+      });
     }
   },
 
   created() {
 
-    this.$http.get('http://localhost:3000/v1/fotos')
-      .then(res => res.json()).then(fotos => this.fotos = fotos, err => console.log(err));
+
+    this.service = new FotoService(this.$resource);
+
+    this.service.lista().then(fotos => this.fotos = fotos, err => console.log(err));
 
   },
 
@@ -91,6 +114,7 @@ $Rosa:  #FF69B4;
 
 main {
   .lista-fotos {
+    margin-left: 4%;
     list-style: none;
   }
 
@@ -107,6 +131,12 @@ main {
     width: 20%;
     border: solid 2px $Cinza;
     border-radius: 5px;
+  }
+
+  .errMensage {
+    text-align: center;
+    color: $Vermelho;  
+    font-weight: bold;
   }
 
 }

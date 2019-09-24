@@ -88,20 +88,17 @@ $Laranja:   #FF8C00;
     }
 
     .botao-alterar {
-        width: 10%;
+        width: 100%;
         height: auto;
         background: $Azul;
-        color: $Branco;
-        border-radius: 10px;
-
+        color: $Branco;            
     }
 
     .botao-deleta {
-        width: 10%;
+        width: 100%;
         height: auto;
         background: $Vermelho;
         color: $Branco;
-        border-radius: 10px;
     }
 
     .botao-grava {

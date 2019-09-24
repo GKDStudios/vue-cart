@@ -4,6 +4,10 @@
     <h1 class="centralizado"><strong>Cadastro de Rações</strong></h1> <br>
     <h2 class="centralizado">{{ foto.titulo }}</h2>
 
+    <h2 v-if="foto._id"class="centralizado t1">Alterando</h2>
+    <h2 v-else class="centralizado t2">Incluindo</h2>
+    <br>
+
     <form align="center" @submit.prevent="grava()">
 
         <div>
@@ -15,7 +19,7 @@
         <div>
 
           <input class="frml" v-model.lazy="foto.url" id="url" placeholder="URL imagem produto" autocomplete="off">
-          <imgResponsiva v-show="foto.url" :url="foto.url" :titulo="foto.titulo" />
+          <imgResponsiva class="ftCentro" v-show="foto.url" :url="foto.url" :titulo="foto.titulo" />
 
         </div> <br>
 
@@ -27,7 +31,7 @@
 
       <botao estilo="grava" rotulo="Gravar" tipo="submit" />
 
-      <router-link to="/"><botao estilo="volta" rotulo="voltar" tipo="button"/></router-link>
+      <router-link :to="{ name: 'home'}"><botao estilo="volta" rotulo="voltar" tipo="button"/></router-link>
 
     </form>
   </div>
@@ -37,6 +41,8 @@
 import navBar from '../shared/navBar/navBar.vue';
 import Botao from '../shared/botao/Botao.vue';
 import ImagemResponsiva from '../shared/img-responsiva/ImagemResponsiva.vue'
+import Foto from '../../domain/foto/Foto';
+import FotoService from '../../domain/foto/fotoService';
 
 export default {
 
@@ -52,12 +58,9 @@ export default {
 
     return {
 
-      foto: {
-        titulo: '',
-        url: '',
-        descricao: ''
+      foto: new Foto(),
+      id: this.$route.params.id
 
-      }
     }
   },
 
@@ -65,14 +68,26 @@ export default {
 
     grava() {
 
-      console.log(this.foto);
-      this.foto = {
-        titulo: '',
-        url: '',
-        descricao: '',
-      };
+      this.service.cadastra(this.foto)
+      .then(() => {
+        if(this.id) this.$router.push({ name: 'home' });
+        this.foto = new Foto();
+      }, err => console.log(err));
+
     }
   },
+
+  created() {
+
+    this.service = new FotoService(this.$resource);
+
+    if(this.id) {
+
+      this.service.busca(this.id).then(foto => this.foto = foto);
+
+    }
+
+  }
 
 };
 
@@ -94,10 +109,23 @@ $Rosa:  #FF69B4;
       text-align: center;
       font-size: 25px;
     }
+
+    .t1 {
+      color: $Azul;
+    }
+
+    .t2 {
+      color: $Verde;
+    }
+
     .frml {
       border: solid 2px $Roxo;
       border-radius: 10px;
       width: 40%;
       text-align: center;
+    }
+
+    .ftCentro {
+      margin-left: 43%;
   }
 </style>

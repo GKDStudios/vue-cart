@@ -14,7 +14,7 @@
 
 export default {
 
-  props: ['titulo']
+  props: ['titulo', 'descricao']
 };
 </script>
 
@@ -37,7 +37,7 @@ $Rosa:  #FF69B4;
     margin: 5px;
     box-shadow: 2px 2px 2px $Cinza;
     width: 200px;
-    height: 100%;
+    height: 337px;
     vertical-align: top;
     text-align: center;
   }

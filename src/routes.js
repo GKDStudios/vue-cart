@@ -4,8 +4,10 @@ import Produtos from './components/produtos/Produtos.vue';
 
 export const routes = [
 
-	{ path: '', component: Home, titulo: 'Home' },
-    { path: '/cadastro', component: Cadastro, titulo: 'Cadastro' },
-    { path: '/produto', component: Produtos, titulo: 'Produto' },
+	{ path: '', name: 'home', component: Home, titulo: 'Home', menu: true },
+    { path: '/cadastro', name: 'cadastro', component: Cadastro, titulo: 'Cadastro', menu: true },
+     { path: '/cadastro/:id', name: 'altera', component: Cadastro, titulo: 'Cadastro', menu: false },
+    { path: '/produto/:id', name: 'produto', component: Produtos, titulo: 'Produto', menu: true },
+    { path: '*', component: Home, menu: false } 
 
 ];

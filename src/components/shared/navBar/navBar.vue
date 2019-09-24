@@ -5,7 +5,7 @@
 
       <span class="gs"><strong>GS Rações</strong></span>
 
-       <ul class="bar"> <li> <router-link to="/"> <strong> Home </strong> </router-link> </li> </ul>
+       <ul class="bar"> <li> <router-link :to=" { name: 'home' } "> <strong> Home </strong> </router-link> </li> </ul>
 
       <router-link class="cartBuy" to="#"><img src="https://image.flaticon.com/icons/png/512/34/34562.png" /></router-link>
     </nav>

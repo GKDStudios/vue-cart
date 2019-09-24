@@ -12,6 +12,7 @@ export default {
 
 <style scoped>
     .imagem-responsiva {
-        width: 100%;
+        width: 196px;
+        height: 196px;
     }
 </style>
