@@ -37,7 +37,7 @@ $Rosa:  #FF69B4;
     margin: 5px;
     box-shadow: 2px 2px 2px $Cinza;
     width: 200px;
-    height: 337px;
+    height: 299px;
     vertical-align: top;
     text-align: center;
   }

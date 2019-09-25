@@ -3,20 +3,25 @@
 		
 		<navBar></navBar>
 
-		<h1 class="centralizado">{{ foto.titulo }}</h1>
-
-		<div class="Painel">
+		<painel class="painel" :titulo="foto.titulo">
 			
-			<imgResponsiva class="imgResponsiva" :url="foto.url" :titulo="foto.titulo" />
-			<p class="desc" v-model="foto.descricao" />
+				<imgResponsiva class="imgResponsiva" :url="foto.url" :titulo="foto.titulo" />
+				<p class="desc">{{ descricao }}</p>
 
-		</div>
+		</painel>
+
+		<botao rotulo="Remover" tipo="button" estilo="deleta" @click.native="remove(foto)" />
+
+		 <router-link :to="{ name: 'home'}"><botao estilo="volta" rotulo="voltar" tipo="button"/></router-link>
+
+		  <router-link :to="{ name: 'home'}"><botao estilo="volta" rotulo="voltar" tipo="button"/></router-link>
 
 	</div>
 
 </template>
 
 <script>
+import painel from '../shared/painel/painel.vue';
 import ImagemResponsiva from '../shared/img-responsiva/ImagemResponsiva.vue';
 import navBar from '../shared/navBar/navBar.vue';
 import Botao from '../shared/botao/Botao.vue';
@@ -28,6 +33,7 @@ export default {
 
   components: {
 
+  	'painel' : painel,
     'imgResponsiva' : ImagemResponsiva,
     'navBar' : navBar, 
     'botao' : Botao, 
@@ -39,8 +45,28 @@ export default {
     return {
 
       foto: new Foto(),
-      id: this.$route.params.id
+      id: this.$route.params.id,
+      descricao: 'url.descricao',
 
+    }
+  },
+
+   methods: {
+
+    remove(foto) {
+
+      this.service.apaga(foto._id).then(() => {
+
+        let indice =this.fotos.indexOf(foto); 
+        this.fotos.splice(indice, 1);
+        this.mensagem = 'Foto removida com sucesso!';
+
+      }, err => {
+
+        console.log(err);
+        this.mensagem = 'Não foi possivel remover a foto!';
+
+      });
     }
   },
 
@@ -75,13 +101,13 @@ $Rosa:  #FF69B4;
       font-size: 25px;
     }
 
-	.Painel {
-	  margin-left: 30%;
+	.painel {
+	  width: 60%;
+	  margin-left: 20%;
 	  margin-right: 10%;
 	  margin-top: 5%;
 	  margin-bottom: 10%;
 	  border: solid 2px $Verde;
-	  border-radius: 10px;
 
 	  .imgResponsiva{
 	  	width: 50%;

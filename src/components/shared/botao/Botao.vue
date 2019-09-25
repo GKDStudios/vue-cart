@@ -95,10 +95,11 @@ $Laranja:   #FF8C00;
     }
 
     .botao-deleta {
-        width: 100%;
+        width: 15%;
         height: auto;
         background: $Vermelho;
         color: $Branco;
+        border-radius: 10px;
     }
 
     .botao-grava {
@@ -116,5 +117,13 @@ $Laranja:   #FF8C00;
         color: $Branco;
         border-radius: 10px;
     }
+
+    .botao-adcCarrinho {
+        width: 15px;
+        height: auto;
+        background: $Verde;
+        color: $Branco;
+        border-radius: 10px;
+  }
 
 </style>

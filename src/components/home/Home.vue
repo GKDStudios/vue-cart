@@ -14,9 +14,7 @@
 
             <imgResponsiva :url="foto.url" :titulo="foto.titulo" />
 
-            <botao rotulo="Remover" tipo="button" estilo="deleta" @click.native="remove(foto)" />
-
-            <router-link :to="{ name: 'cadastro', params: { id: foto._id}}"><botao rotulo="Alterar" tipo="button" estilo="alterar" /></router-link>
+            <router-link :to="{ name: 'produto', params: { id: foto._id}}"><botao rotulo="Comprar" tipo="button" estilo="padrao" /></router-link>
 
           </painel>
 
