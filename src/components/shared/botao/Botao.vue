@@ -49,6 +49,7 @@ export default {
            if(this.estilo == 'grava') return 'botao botao-grava';
 
            if(this.estilo == 'volta') return 'botao botao-volta';
+           if(this.estilo == 'adcCarrinho') return 'botao botao-adcCarrinho';
         },
     }
 };
@@ -95,11 +96,10 @@ $Laranja:   #FF8C00;
     }
 
     .botao-deleta {
-        width: 15%;
+        width: 100%;
         height: auto;
         background: $Vermelho;
         color: $Branco;
-        border-radius: 10px;
     }
 
     .botao-grava {
@@ -119,7 +119,7 @@ $Laranja:   #FF8C00;
     }
 
     .botao-adcCarrinho {
-        width: 15px;
+        width: 20%;
         height: auto;
         background: $Verde;
         color: $Branco;

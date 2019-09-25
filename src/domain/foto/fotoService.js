@@ -9,7 +9,10 @@ export default class FotoService {
 
 		return this._resource
 			.query()
-			.then(res => res.json());
+			.then(res => res.json(), err =>{
+				console.log(err);
+				throw new Error ('Não foi possivel obter as imagens, tente novamente mais tarde!');
+			});
 	
 	}
 
@@ -27,7 +30,10 @@ export default class FotoService {
 
 	apaga(id) {
 
-		this._resource.delete({ id });
+		this._resource.delete({ id }).then(null, err => {
+			console.log(err);
+			throw new Error ('Não foi possivel romover a imagem!');
+		});
 
 	}
 

@@ -31,7 +31,7 @@
 
       <botao estilo="grava" rotulo="Gravar" tipo="submit" />
 
-      <router-link :to="{ name: 'home'}"><botao estilo="volta" rotulo="voltar" tipo="button"/></router-link>
+      <router-link :to="{ name: 'home2'}"><botao estilo="volta" rotulo="voltar" tipo="button"/></router-link>
 
     </form>
   </div>

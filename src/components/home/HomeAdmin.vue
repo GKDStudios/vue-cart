@@ -10,11 +10,13 @@
       <ul class="lista-fotos">
         <li class="lista-fotos-item" v-for="foto in fotosComFiltro">
 
-          <painel :titulo="foto.titulo">
+          <painel class="painel" :titulo="foto.titulo">
 
             <imgResponsiva :url="foto.url" :titulo="foto.titulo" />
 
-            <router-link :to="{ name: 'produto', params: { id: foto._id}}"><botao rotulo="Comprar" tipo="button" estilo="padrao" /></router-link>
+            <botao rotulo="Remover" tipo="button" estilo="deleta" @click.native="remove(foto)" />
+
+            <router-link :to="{ name: 'cadastro', params: { id: foto._id}}"><botao rotulo="Alterar" tipo="button" estilo="alterar" /></router-link>
 
           </painel>
 
@@ -70,14 +72,18 @@ export default {
 
     remove(foto) {
 
-      this.service.apaga(foto._id).then(() => {
+      this.service.apaga(foto._id).then(() => { 
 
-        let indice =this.fotos.indexOf(foto); 
+        let indice = this.fotos.indexOf(foto); 
         this.fotos.splice(indice, 1);
         this.mensagem = 'Foto removida com sucesso!';
 
-      }, err =>
-        this.mensagem = err.message );
+      }, err => {
+
+        console.log(err);
+        this.mensagem = 'Não foi possivel remover a foto!';
+
+      });
     }
   },
 
@@ -86,7 +92,7 @@ export default {
 
     this.service = new FotoService(this.$resource);
 
-    this.service.lista().then(fotos => this.fotos = fotos, err => this.mensagem = err.message );
+    this.service.lista().then(fotos => this.fotos = fotos, err => this.mensagem = err.message);
 
   },
 
@@ -131,6 +137,10 @@ main {
     text-align: center;
     color: $Vermelho;  
     font-weight: bold;
+  }
+
+  .painel {
+    height: 337px;
   }
 
 }

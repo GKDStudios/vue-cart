@@ -3,18 +3,21 @@
 		
 		<navBar></navBar>
 
+    <h2 class="centralizado">{{ mensagem }}</h2>
+
 		<painel class="painel" :titulo="foto.titulo">
 			
 				<imgResponsiva class="imgResponsiva" :url="foto.url" :titulo="foto.titulo" />
 				<p class="desc">{{ descricao }}</p>
+        <router-link :to="{ name: 'carrinho'}"><botao estilo="adcCarrinho" class="adcCart" rotulo="Adicionar ao carrinho" tipo="button"/></router-link>
 
 		</painel>
 
-		<botao rotulo="Remover" tipo="button" estilo="deleta" @click.native="remove(foto)" />
+    <div class="botoes">
 
-		 <router-link :to="{ name: 'home'}"><botao estilo="volta" rotulo="voltar" tipo="button"/></router-link>
+		  <router-link :to="{ name: 'home'}"><botao estilo="volta" rotulo="Voltar" tipo="button"/></router-link>
 
-		  <router-link :to="{ name: 'home'}"><botao estilo="volta" rotulo="voltar" tipo="button"/></router-link>
+    </div>
 
 	</div>
 
@@ -46,27 +49,9 @@ export default {
 
       foto: new Foto(),
       id: this.$route.params.id,
-      descricao: 'url.descricao',
+      descricao: '',
+      mensagem: '',
 
-    }
-  },
-
-   methods: {
-
-    remove(foto) {
-
-      this.service.apaga(foto._id).then(() => {
-
-        let indice =this.fotos.indexOf(foto); 
-        this.fotos.splice(indice, 1);
-        this.mensagem = 'Foto removida com sucesso!';
-
-      }, err => {
-
-        console.log(err);
-        this.mensagem = 'Não foi possivel remover a foto!';
-
-      });
     }
   },
 
@@ -99,6 +84,8 @@ $Rosa:  #FF69B4;
       margin-top: 7px;
       text-align: center;
       font-size: 25px;
+      font-weight: bold;
+      font-color: $Vermelho;
     }
 
 	.painel {
@@ -110,9 +97,29 @@ $Rosa:  #FF69B4;
 	  border: solid 2px $Verde;
 
 	  .imgResponsiva{
-	  	width: 50%;
+	  	width: 35%;
+      height: auto;
+      position: absolute;
 	  }
+
+    .desc {
+      float: right;
+      margin-right: 3%;
+      clear: both;
+    }
+
+    .adcCart {
+      float: right;
+      margin-right: 2%;
+      clear: both;
+      margin-top: 19%;
+    }
 	}
+
+  .botoes {
+    margin-left: 40%;
+    margin-right: 0;
+  }
 
 	
 </style>
