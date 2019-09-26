@@ -118,7 +118,7 @@ main {
 
   .filtro {
     margin-top: 7px;
-    margin-left: 7px;
+    margin-left: 4%;
     margin-bottom: 7px;
     padding: 1px;
     display: block;

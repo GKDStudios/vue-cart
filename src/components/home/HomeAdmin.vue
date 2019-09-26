@@ -70,20 +70,16 @@ export default {
 
   methods: {
 
-    remove(foto) {
-
-      this.service.apaga(foto._id).then(() => { 
-
-        let indice = this.fotos.indexOf(foto); 
-        this.fotos.splice(indice, 1);
-        this.mensagem = 'Foto removida com sucesso!';
-
-      }, err => {
-
-        console.log(err);
-        this.mensagem = 'Não foi possivel remover a foto!';
-
-      });
+    remove(foto) { 
+       
+      this.service.apaga(foto._id)
+        .then(()=> {
+          let indice = this.fotos.indexOf(foto);
+          this.fotos.splice(indice, 1);
+          this.mensagem = 'Foto removida com sucesso';
+        }, err => {
+          this.mensagem = err.message;
+        });
     }
   },
 
@@ -124,7 +120,7 @@ main {
 
   .filtro {
     margin-top: 7px;
-    margin-left: 7px;
+    margin-left: 4%;
     margin-bottom: 7px;
     padding: 1px;
     display: block;

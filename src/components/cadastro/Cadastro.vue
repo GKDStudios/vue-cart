@@ -12,20 +12,27 @@
 
         <div>
 
-          <input class="frml" v-model="foto.titulo" id="titulo" placeholder="Nome produto">
+          <input data-vv-as="título" name="titulo" v-validate data-vv-rules="required|min:3|max:40" class="frml" v-model="foto.titulo" id="titulo" placeholder="Nome produto"> <br>
 
+          <span class="erro" v-show="errors.has('titulo')">{{ errors.first('titulo') }}</span>
+ 
         </div> <br>
 
         <div>
 
-          <input class="frml" v-model.lazy="foto.url" id="url" placeholder="URL imagem produto" autocomplete="off">
+          <input name="url" v-validate data-vv-rules="required" class="frml" v-model="foto.url" id="url" placeholder="URL imagem produto" autocomplete="off"> <br>
+
+          <span class="erro" v-show="errors.has('url')">{{ errors.first('url') }}</span>
+
           <imgResponsiva class="ftCentro" v-show="foto.url" :url="foto.url" :titulo="foto.titulo" />
 
         </div> <br>
 
         <div>
 
-          <input class="frml" v-model="foto.descricao" id="descricao" placeholder="Descrição produto" autocomplete="off">
+          <input data-vv-as="descrição" name="descricao" v-validate data-vv-rules="required" class="frml" v-model="foto.descricao" id="descricao" placeholder="Descrição produto" autocomplete="off">  <br>
+
+          <span class="erro" v-show="errors.has('descricao')">{{ errors.first('descricao') }}</span>
 
         </div> <br>
 
@@ -68,11 +75,16 @@ export default {
 
     grava() {
 
-      this.service.cadastra(this.foto)
-      .then(() => {
-        if(this.id) this.$router.push({ name: 'home' });
+      this.$validator.validateAll()
+      .then(success => { if(success) 
+
+        this.service.cadastra(this.foto)
+        .then(() => {
+        if(this.id) this.$router.push({ name: 'home2' });
         this.foto = new Foto();
       }, err => console.log(err));
+
+      });
 
     }
   },
@@ -127,5 +139,9 @@ $Rosa:  #FF69B4;
 
     .ftCentro {
       margin-left: 43%;
-  }
+    }
+
+    .erro {
+      color: $Vermelho;
+    }
 </style>

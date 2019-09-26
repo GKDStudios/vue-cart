@@ -5,6 +5,8 @@
       <h2 class="painel-titulo">{{ titulo }}</h2>
       <slot class="painel-conteudo">
 
+        <p>{{ descricao }}</p>
+
       </slot>
     </div>
 
