@@ -71,6 +71,8 @@ export default {
   methods: {
 
     remove(foto) { 
+
+      alert('*VOCÊ ESTÁ EXCLUINDO ESTE ITEM DE SUA LISTA!*');
        
       this.service.apaga(foto._id)
         .then(()=> {
