@@ -8,7 +8,7 @@
       <input type="search" class="filtro" @input="filtro = $event.target.value" placeholder="Busque pela sua ração">
 
       <ul class="lista-fotos">
-        <li class="lista-fotos-item" v-for="foto in fotosComFiltro">
+        <li class="lista-fotos-item" v-for="foto in fotosComFiltro" key="foto._id">
 
           <painel class="painel" :titulo="foto.titulo">
 
@@ -142,4 +142,4 @@ main {
   }
 
 }
-</style>
+</style> 

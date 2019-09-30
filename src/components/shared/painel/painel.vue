@@ -2,12 +2,18 @@
 
     <div class="painel">
 
-      <h2 class="painel-titulo">{{ titulo }}</h2>
-      <slot class="painel-conteudo">
+      <h2 class="painel-titulo" @dblclick="visivel = !visivel">{{ titulo }}</h2>
 
-        <p>{{ descricao }}</p>
 
-      </slot>
+      <transition name="painel-fade">
+
+          <div class="painel-conteudo" v-show="visivel">
+              <slot></slot>
+          </div>
+
+      </transition>
+
+
     </div>
 
 </template>
@@ -16,7 +22,13 @@
 
 export default {
 
-  props: ['titulo', 'descricao']
+  props: ['titulo', 'descricao'],
+
+  data() {
+
+    return { visivel: true }
+  },
+
 };
 </script>
 
@@ -52,5 +64,14 @@ $Rosa:  #FF69B4;
     padding: 10px;
     text-transform: uppercase;
   }
+
+  .painel-fade-enter, .painel-fade-leave-active {
+    opacity: 0;
+  }
+
+  .painel-fade-enter-active, .painel-fade-leave-active {
+    transition: opacity .2s;
+  }
+
 
 </style>
