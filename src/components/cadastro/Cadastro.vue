@@ -8,6 +8,7 @@
     <h2 v-else class="centralizado t2">Incluindo</h2>
     <br>
 
+    
     <form align="center" @submit.prevent="grava()">
 
         <div>
@@ -143,5 +144,6 @@ $Rosa:  #FF69B4;
 
     .erro {
       color: $Vermelho;
+      font-weight: bold;
     }
 </style>
